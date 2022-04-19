@@ -210,7 +210,7 @@ namespace PSCredentialManager.Cmdlet
         /// <para type="description">Specifies the password in plain text, cannot be used in conjunction with SecurePassword or Credential parameters.</para>
         /// </summary>
         [Parameter(ParameterSetName = "Plain Text")]
-        public string Password = System.Web.Security.Membership.GeneratePassword(10, 2);
+        public string Password = Membership.GeneratePassword(10, 2);
 
         /// <summary>
         /// <para type="description">Specifies the password as a secure string, cannot be used in conjunction with SecurePassword or Credential parameters.</para>
@@ -313,7 +313,7 @@ namespace PSCredentialManager.Cmdlet
                 //Write credential to Windows Credential manager
                 WriteVerbose("Writing credential to Windows Credential Manager");
                 credentialManager.WriteCred(nativeCredential);
-                WriteObject(credential);
+                WriteObject(nativeCredential);
             }
             catch (Exception exception)
             {
@@ -412,7 +412,7 @@ namespace PSCredentialManager.Cmdlet
 
         protected override void ProcessRecord()
         {
-            WriteObject(System.Web.Security.Membership.GeneratePassword(Length, NumberOfSpecialCharacters));
+            WriteObject(Membership.GeneratePassword(Length, NumberOfSpecialCharacters));
         }
 
         protected override void EndProcessing() { }
